@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<h1>회원가입</h1>
+<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
+
+<form method="post">
+    <div>
+        <p>아이디</p>
+        <input type="text" name="userId" placeholder="이메일을 입력하세요." required/>
+    </div>
+
+    <div>
+        <p>비밀번호</p>
+        <input type="password" name="password" placeholder="비밀번호를 입력하세요."
+               required/>
+    </div>
+
+    <div>
+        <p>비밀번호 확인</p>
+        <input type="password" name="re_password" placeholder="비밀번호 한번 더 입력하세요."
+               required/>
+    </div>
+
+    <div>
+        <p>이름</p>
+        <input type="text" name="userName" placeholder="이름을 입력하세요." required/>
+    </div>
+
+    <div>
+        <p>생년월일</p>
+        <input type="text" name="birth" placeholder="생년월일을 입력하세요." required/>
+    </div>
+
+    <div>
+        <p>휴대폰</p>
+        <input type="tel" name="phone" placeholder="연락처를 입력하세요." required/>
+    </div>
+
+    <div>
+        <br/>
+        <button type="submit">가입하기</button>
+    </div>
+</form>
+
+</body>
+</html>
