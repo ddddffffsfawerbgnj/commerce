@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품목록</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Style the top navigation bar */
+        .menu {
+            overflow: hidden;
+            background-color: #663399;
+        }
+
+        /* Style the topnav links */
+        .menu a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change color on hover */
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .list table th, .list table td {
+            border: solid 1px #000;
+        }
+
+        .search-form {
+            position: relative;
+            padding: 5px 0 10px 0;
+            text-align: right;
+        }
+
+        .search-form .total-count {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 20px;
+            float: left;
+        }
+
+        .pager {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pager a.on {
+            font-weight: bold;
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+<h1>상품목록</h1>
+<div class="menu">
+    <a href="/">홈</a>
+    <a href="/product/list">상품목록</a>
+    <a href="#">장바구니</a>
+    <a href="/member/register">회원가입</a>
+    <a href="/member/login">로그인</a>
+    <a href="/member/logout">로그아웃</a>
+</div>
+
+<div class="list">
+
+    <div class="search-form">
+        <p class="total-count">총 <span th:text="${totalCount}"></span>건</p>
+
+        <form method="get">
+            <select name="searchType">
+                <option value="all">전체</option>
+                <option
+                        th:selected="${#strings.equals(param.searchType, 'productId')}" value="productId">상품아이디</option>
+                <option
+                        th:selected="${#strings.equals(param.searchType, 'productName')}" value="productName">상품명</option>
+                <option
+                        th:selected="${#strings.equals(param.searchType, 'price')}" value="price">가격</option>
+            </select>
+
+            <input th:value="${param.searchValue}" type="sear"
+                   name="searchValue"
+                   placeholder="검색어 입력"/>
+            <button type="submit">검색</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>NO</th>
+            <th>상품명</th>
+            <th>가격</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="x : ${list}">
+            <td th:text="${x.seq}">1</td>
+            <td>
+            <a th:text="${x.productName}"
+                th:href="${'detail?productName=' + x.productName}">
+                우유</a>
+            </td>
+            <td th:text="${x.price}">2000</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="pager" th:utext="${pager}"></div>
+
+</div>
+</body>
+</html>

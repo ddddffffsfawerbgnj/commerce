@@ -1,4 +1,4 @@
-package com.example.commerce.member.entity;
+package com.example.commerce.entity;
 
 
 import lombok.AllArgsConstructor;
@@ -22,8 +22,6 @@ public class Member {
     private String userName;
     private String birth;
     private String phone;
-    @Enumerated(EnumType.STRING)
-    private Role role;
     private LocalDateTime subscription;
 
     private boolean emailAuthYn;

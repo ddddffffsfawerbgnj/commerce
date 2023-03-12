@@ -1,8 +1,7 @@
-package com.example.commerce.member.serviece;
+package com.example.commerce.serviece;
 
-import com.example.commerce.member.model.MemberInput;
+import com.example.commerce.model.MemberInput;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface MemberService extends UserDetailsService {
 

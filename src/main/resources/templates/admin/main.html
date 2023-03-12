@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>회원 가입 완료</title>
+    <title>관리자 화면</title>
+
     <style>
         * {
             box-sizing: border-box;
@@ -38,27 +39,18 @@
         }
 
     </style>
+
 </head>
 <body>
+<h1>관리자 메인</h1>
 
-<h1>회원 가입 완료</h1>
 <div class="menu">
-    <a href="/">홈</a>
-    <a href="/product/list">상품목록</a>
-    <a href="#">장바구니</a>
-    <a href="/member/register">회원가입</a>
+    <a href="/admin/main">홈</a>
+    <a href="#">회원 관리</a>
+    <a href="#">상품 등록</a>
     <a href="/member/login">로그인</a>
-    <a href="/member/logout">로그아웃</a>
+    <a href="member/logout">로그아웃</a>
 </div>
 
-<div th:if="${result}">
-    <p>회원 가입이 완료됐습니다.</p>
-</div>
-
-<div th:if="${result eq false}">
-    <p>회원 가입이 실패됐습니다.</p>
-</div>
-
-</div>
 </body>
 </html>

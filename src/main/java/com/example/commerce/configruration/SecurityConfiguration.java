@@ -1,6 +1,6 @@
 package com.example.commerce.configruration;
 
-import com.example.commerce.member.serviece.MemberService;
+import com.example.commerce.serviece.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

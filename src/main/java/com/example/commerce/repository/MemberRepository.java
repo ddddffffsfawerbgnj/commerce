@@ -1,6 +1,6 @@
-package com.example.commerce.member.repository;
+package com.example.commerce.repository;
 
-import com.example.commerce.member.entity.Member;
+import com.example.commerce.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -8,6 +8,4 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, String> {
     Optional<Member> findByEmailAuthKey(String emailAuthKey);
 
-    //회원가입 중복 체크
-    Optional<Member> findByUserId(String userId);
 }

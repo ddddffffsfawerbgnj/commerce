@@ -1,4 +1,4 @@
-package com.example.commerce.member.model;
+package com.example.commerce.model;
 
 import lombok.Data;
 import lombok.ToString;

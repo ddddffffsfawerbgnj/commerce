@@ -1,10 +1,10 @@
-package com.example.commerce.member.serviece.impl;
+package com.example.commerce.serviece.impl;
 
 import com.example.commerce.component.MailComponents;
-import com.example.commerce.member.entity.Member;
-import com.example.commerce.member.model.MemberInput;
-import com.example.commerce.member.repository.MemberRepository;
-import com.example.commerce.member.serviece.MemberService;
+import com.example.commerce.entity.Member;
+import com.example.commerce.model.MemberInput;
+import com.example.commerce.repository.MemberRepository;
+import com.example.commerce.serviece.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,18 +14,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
-
     private final MailComponents mailComponents;
 
     /* 회원가입 */
@@ -57,26 +56,14 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
 
         String email = parameter.getUserId();
-        String subject = "commerse에 가입되었습니다.";
-        String text = "<p>commerse에 가입을되었습니다.<p><p>아래 링크를 클릭하셔서 가입을 완료해주세요" +
+        String subject = "commerce에 가입되었습니다.";
+        String text = "<p>commerce에 가입을되었습니다.<p><p>아래 링크를 클릭하셔서 가입을 완료해주세요" +
                 ".</p><div><a target='_blank' " +
                 "href='http://localhost:8080/member/email-auth?id=" + uuid +
                 "'> 가입 완료 링크 </a></div>";
         mailComponents.sendMail(email, subject, text);
 
         return true;
-    }
-
-    /* 회원가입 시, 유효성 체크 */
-    @Transactional(readOnly = true)
-    public Map<String, String> validateHandling(Errors errors) {
-        Map<String, String> validatorResult = new HashMap<>();
-
-        for (FieldError error : errors.getFieldErrors()) {
-            String validKeyName = String.format("valid_%s", error.getField());
-            validatorResult.put(validKeyName, error.getDefaultMessage());
-        }
-        return validatorResult;
     }
 
     @Override
