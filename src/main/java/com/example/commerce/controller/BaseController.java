@@ -7,6 +7,5 @@ public class BaseController {
         PageUtil pageUtil = new PageUtil(totalCount, pageSize, pageIndex, queryString);
         return pageUtil.pager();
     }
-    
-    
+
 }

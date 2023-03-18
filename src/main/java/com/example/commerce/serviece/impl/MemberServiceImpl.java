@@ -24,6 +24,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService {
+
     private final MemberRepository memberRepository;
     private final MailComponents mailComponents;
 
@@ -107,4 +108,5 @@ public class MemberServiceImpl implements MemberService {
 
         return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
     }
+
 }

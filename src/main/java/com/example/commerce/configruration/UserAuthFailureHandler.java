@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserAuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String msg = "로그인에 실패하였습니다.";
@@ -26,4 +27,5 @@ public class UserAuthFailureHandler extends SimpleUrlAuthenticationFailureHandle
 
         super.onAuthenticationFailure(request, response, exception);
     }
+
 }

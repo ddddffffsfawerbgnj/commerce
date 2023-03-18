@@ -52,4 +52,5 @@ public class MemberController {
 
         return "member/email_auth";
     }
+
 }

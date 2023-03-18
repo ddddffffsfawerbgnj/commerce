@@ -10,5 +10,4 @@ public interface MemberService extends UserDetailsService {
 
     //uuid에 해당하는 계정 활성화
     boolean emailAuth(String uuid);
-
 }

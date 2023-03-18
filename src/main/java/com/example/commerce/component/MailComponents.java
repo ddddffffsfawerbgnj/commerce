@@ -11,6 +11,7 @@ import javax.mail.internet.MimeMessage;
 @RequiredArgsConstructor
 @Component
 public class MailComponents {
+
     private final JavaMailSender javaMailSender;
 
     public boolean sendMail(String email, String subject, String text){
