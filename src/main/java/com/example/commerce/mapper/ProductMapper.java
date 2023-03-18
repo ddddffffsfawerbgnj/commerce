@@ -8,6 +8,8 @@ import java.util.List;
 
 @Mapper
 public interface ProductMapper {
+
     long selectListCount(ProductParam parameter);
     List<ProductDto> selectList(ProductParam parameter);
+
 }

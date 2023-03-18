@@ -7,9 +7,6 @@
     <sql id="selectListWhere">
         <if test="searchType != null and searchValue != null">
             <choose>
-                <when test="searchType == 'productId'">
-                    and product_id like concat('%', #{searchValue}, '%')
-                </when>
                 <when test="searchType == 'productName'">
                     and product_name like concat('%', #{searchValue}, '%')
                 </when>
@@ -19,8 +16,6 @@
                 <otherwise>
                     and
                     (
-                    product_id like concat('%', #{searchValue}, '%')
-                    or
                     product_name like concat('%', #{searchValue}, '%')
                     or
                     price like concat('%', #{searchValue}, '%')

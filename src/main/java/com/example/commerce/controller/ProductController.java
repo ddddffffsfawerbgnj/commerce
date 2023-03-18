@@ -1,6 +1,7 @@
 package com.example.commerce.controller;
 
 import com.example.commerce.dto.ProductDto;
+import com.example.commerce.dto.ProductFormDto;
 import com.example.commerce.entity.Product;
 import com.example.commerce.model.ProductParam;
 import com.example.commerce.serviece.ProductService;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ProductController extends BaseController{
     private final ProductService productService;
 
+    /*상품목록*/
     @GetMapping("/product/list")
     public String list(Model model, ProductParam parameter){
 
@@ -35,5 +37,15 @@ public class ProductController extends BaseController{
 
         return "product/list";
     }
+
+    /*상품등록*/
+    @GetMapping(value = "/admin/product/new")
+    public String productForm(Model model) {
+        model.addAttribute("productFromDto", new ProductFormDto());
+        return "product/list";
+    }
+
+    /*상품상세*/
+
 
 }

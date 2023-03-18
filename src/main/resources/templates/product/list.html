@@ -70,6 +70,11 @@
         }
 
     </style>
+
+    <script>
+
+    </script>
+
 </head>
 <body>
 <h1>상품목록</h1>
@@ -90,12 +95,8 @@
         <form method="get">
             <select name="searchType">
                 <option value="all">전체</option>
-                <option
-                        th:selected="${#strings.equals(param.searchType, 'productId')}" value="productId">상품아이디</option>
-                <option
-                        th:selected="${#strings.equals(param.searchType, 'productName')}" value="productName">상품명</option>
-                <option
-                        th:selected="${#strings.equals(param.searchType, 'price')}" value="price">가격</option>
+                <option th:selected="${#strings.equals(param.searchType, 'productName')}" value="productName">상품명</option>
+                <option th:selected="${#strings.equals(param.searchType, 'price')}" value="price">가격</option>
             </select>
 
             <input th:value="${param.searchValue}" type="sear"
