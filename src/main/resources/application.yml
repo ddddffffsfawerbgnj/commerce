@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:mariadb://127.0.0.1:3306/commerce_db
-    driver-class-name: org.mariadb.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: commerce_user
     password: a1234
 
