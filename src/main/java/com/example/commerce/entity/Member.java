@@ -23,4 +23,6 @@ public class Member {
 
     private boolean emailAuthYn;
     private String emailAuthKey;
+
+    private boolean adminYn;
 }

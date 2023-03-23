@@ -1,16 +1,13 @@
 package com.example.commerce.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class MainController {
+public class AdminController {
+    @RequestMapping("/admin/main.do")
+    public String main() {
 
-    @RequestMapping("/")
-    public String index() {
-
-        return "index";
+        return "admin/main";
     }
-
 }

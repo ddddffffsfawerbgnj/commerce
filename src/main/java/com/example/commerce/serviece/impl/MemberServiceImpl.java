@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService {
         String subject = "commerce에 가입되었습니다.";
         String text = "<p>commerce에 가입을되었습니다.<p><p>아래 링크를 클릭하셔서 가입을 완료해주세요" +
                 ".</p><div><a target='_blank' " +
-                "href='http://localhost:8080/member/email-auth?id=" + uuid +
+                "href='http://localhost:8081/member/email-auth?id=" + uuid +
                 "'> 가입 완료 링크 </a></div>";
         mailComponents.sendMail(email, subject, text);
 
@@ -105,6 +105,10 @@ public class MemberServiceImpl implements MemberService {
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+        if (member.isAdminYn()) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
 
         return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
     }

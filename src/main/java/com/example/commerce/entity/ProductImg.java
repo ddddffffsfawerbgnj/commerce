@@ -1,18 +1,19 @@
 package com.example.commerce.entity;
 
-import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "product_img")
 public class ProductImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_img")
-    private Long id;
+    private Long productImgId;
 
     private String imgName; // 이미지 파일명
 
@@ -20,7 +21,7 @@ public class ProductImg {
 
     private String imgUrl; // 이미지 조회 경로
 
-    private String repimgYn; // 대표 이지미 여부
+    private String repImgYn; // 대표 이지미 여부
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
@@ -32,5 +33,4 @@ public class ProductImg {
         this.imgName = imgName;
         this.imgUrl = imgUrl;
     }
-
 }
