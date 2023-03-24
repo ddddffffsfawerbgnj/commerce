@@ -68,7 +68,7 @@ public class ProductController extends BaseController {
      * @param model
      * @return
      */
-    @GetMapping(value = "/admin/produt/{productId}")
+    @GetMapping(value = "/admin/product/{productId}")
     public String productDtl(@PathVariable("productId") Long productId,
                              Model model) {
 

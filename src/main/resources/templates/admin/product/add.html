@@ -233,16 +233,15 @@
 
         <div th:if="${#strings.isEmpty(productDto.productId)}" style="text-align:
         center">
-            <button th:formaction="@{/admin/product/add.do}" type="submit"
+            <button th:formaction="@{/admin/product/add.do}" type="정submit"
                     class="btn btn-primary">저장</button>
         </div>
         <div th:unless="${#strings.isEmpty(productDto.productId)}" style="text-align:
          center">
-            <button th:formaction="@{'/admin/product/' + ${productDto.id} }"
+            <button th:formaction="@{'/admin/product/' + ${productDto.productId} }"
                     type="submit" class="btn btn-primary">수정</button>
         </div>
-        <div th:unless="${#strings.isEmpty(productDto.productId)}" style="text-align:
-         center">
+        <div style="text-align:center">
             <button th:formaction="@{/admin/product/list}"
                     type="submit" class="btn btn-primary">목록</button>
         </div>
