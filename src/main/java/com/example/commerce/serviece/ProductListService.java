@@ -9,4 +9,6 @@ public interface ProductListService{
 
     List<ProductDto> list(ProductParam parameter);
 
+    /* 상품목록 - 구매자 */
+    List<ProductDto> productList(ProductParam parameter);
 }

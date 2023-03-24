@@ -1,9 +1,11 @@
 package com.example.commerce.controller;
 
+import com.example.commerce.dto.MainProductDto;
 import com.example.commerce.dto.ProductDto;
 import com.example.commerce.model.ProductParam;
 import com.example.commerce.serviece.ProductListService;
 import com.example.commerce.serviece.ProductService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -64,6 +67,7 @@ public class ProductController extends BaseController {
 
     /**
      * 상품 수정 - 관리자화면
+     *
      * @param productId
      * @param model
      * @return
@@ -86,8 +90,8 @@ public class ProductController extends BaseController {
 
     @PostMapping(value = "/admin/product/{productId}")
     public String productUpdate(@Valid ProductDto productDto,
-                             BindingResult bindingResult, Model model,
-                             @RequestParam(name = "productImgFile") List<MultipartFile> productImgFileList) {
+                                BindingResult bindingResult, Model model,
+                                @RequestParam(name = "productImgFile") List<MultipartFile> productImgFileList) {
         if (bindingResult.hasErrors()) {
             return "admin/product/add";
         }
@@ -108,7 +112,8 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 상품 목록 - 관리자화면
+     * 상품 목록 - 관리자
+     *
      * @param model
      * @param parameter
      * @return
@@ -131,6 +136,42 @@ public class ProductController extends BaseController {
         model.addAttribute("pager", pagerHtml);
 
         return "admin/product/list";
+    }
+
+    /**
+     * 상품 목록 - 구매자
+     *
+     * @param model
+     * @param parameter
+     * @return
+     */
+    @GetMapping(value = "/product/list")
+    public String productList(Model model, ProductParam parameter) {
+
+        parameter.init();
+        List<ProductDto> products = productListService.list(parameter);
+
+        long totalCount = 0;
+        if (products != null && products.size() > 0) {
+            totalCount = products.get(0).getTotalCount();
+        }
+        String queryString = parameter.getQueryString();
+        String pagerHtml = getPaperHtml(totalCount, parameter.getPageSize(), parameter.getPageIndex(), queryString);
+
+        model.addAttribute("products", products);
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("pager", pagerHtml);
+
+        return "product/list";
+    }
+
+    @GetMapping("/product/{productId}")
+    public String productDetail(Model model,
+                                @PathVariable("productId") Long productId) {
+        ProductDto detail = productService.getProductDtl(productId);
+        model.addAttribute("detail", detail);
+
+        return "product/detail";
     }
 
 }

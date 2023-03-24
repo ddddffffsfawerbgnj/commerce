@@ -16,10 +16,29 @@ import java.util.List;
 public class ProductServiceImpl implements ProductListService {
 
     private final ProductMapper productMapper;
+    private final ProductRepository productRepository;
 
-    /* 상품목록 */
+    /* 상품목록 - 관리자 */
     @Override
     public List<ProductDto> list(ProductParam parameter) {
+        long totalCount = productMapper.selectListCount(parameter);
+
+        List<ProductDto> list = productMapper.selectList(parameter);
+        if (!CollectionUtils.isEmpty(list)) {
+            int i = 0;
+            for (ProductDto x : list) {
+                x.setTotalCount(totalCount);
+                x.setSeq(totalCount - parameter.getPageStart() - i);
+                i++;
+            }
+        }
+
+        return list;
+    }
+
+    /* 상품목록 - 구매자 */
+    @Override
+    public List<ProductDto> productList(ProductParam parameter) {
         long totalCount = productMapper.selectListCount(parameter);
 
         List<ProductDto> list = productMapper.selectList(parameter);

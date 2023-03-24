@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품목록 화면</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Style the top navigation bar */
+        .menu {
+            overflow: hidden;
+            background-color: #663399;
+        }
+
+        /* Style the topnav links */
+        .menu a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change color on hover */
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+    </style>
+
+</head>
+<body>
+<h1>상품목록</h1>
+<div class="menu">
+    <a href="/">홈</a>
+    <a href="/product/list">상품목록</a>
+    <a href="#">장바구니</a>
+    <a href="/member/register">회원가입</a>
+    <a href="/member/login">로그인</a>
+    <a href="/member/logout">로그아웃</a>
+</div>
+
+<div class="list">
+
+    <div class="search-form">
+        <form method="get">
+            <select name="searchType">
+                <option value="all">전체</option>
+                <option th:selected="${#strings.equals(param.searchType, 'productName')}"
+                        value="productName">상품명
+                </option>
+                <option th:selected="${#strings.equals(param.searchType, 'price')}"
+                        value="price">가격
+                </option>
+            </select>
+
+            <input th:value="${param.searchValue}" type="sear"
+                   name="searchValue"
+                   placeholder="검색어 입력"/>
+            <button type="submit">검색</button>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up"
+             th:each="x : ${products}">
+            <div class="block-4 text-center border">
+<!--                <figure class="block-4-image">-->
+<!--                    &lt;!&ndash; 이미지 띄우기 &ndash;&gt;-->
+<!--                    <a th:href="${'/products/' + x.productId}">-->
+<!--                        <img th:if="${#arrays.length(x.imageFiles) > 0}"-->
+<!--                             th:src="'/products/images/'+ ${x.imageFiles[0].productImgId}"-->
+<!--                             alt="Image placeholder" class="img-fluid">-->
+<!--                    </a>-->
+<!--                </figure>-->
+                <div class="block-4-text p-4">
+                    <h3><a th:href="${'/products/' + x.productId}"
+                           th:text="${x.productName}"></a></h3>
+                    <p class="text-primary font-weight-bold"
+                       th:text="${x.price}+' 원'"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pager" th:utext="${pager}"></div>
+
+    </div>
+
+</body>
+</html>
