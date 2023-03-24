@@ -9,10 +9,10 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "product_img")
-public class ProductImg {
+public class ProductImg extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_img")
+    @Column(name = "product_img_id")
     private Long productImgId;
 
     private String imgName; // 이미지 파일명

@@ -16,8 +16,6 @@ import java.util.List;
 public class ProductServiceImpl implements ProductListService {
 
     private final ProductMapper productMapper;
-    private final ProductRepository productRepository;
-
 
     /* 상품목록 */
     @Override

@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -23,7 +25,13 @@ public class ProductController extends BaseController {
 
     private final ProductService productService;
 
-
+    /**
+     * 상품 등록
+     *
+     * @param productDto
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/admin/product/add.do")
     public String productForm(ProductDto productDto, Model model) {
 
@@ -31,10 +39,10 @@ public class ProductController extends BaseController {
         return "admin/product/add";
     }
 
-    @PostMapping("/admin/product/add.do")
+    @PostMapping(value = "/admin/product/add.do")
     public String productAdd(@Valid ProductDto productDto,
                              BindingResult bindingResult, Model model,
-                             @RequestParam(name = "productImgFile")List<MultipartFile> productImgFileList) {
+                             @RequestParam(name = "productImgFile") List<MultipartFile> productImgFileList) {
         if (bindingResult.hasErrors()) {
             return "admin/product/add";
         }
@@ -54,8 +62,24 @@ public class ProductController extends BaseController {
         return "redirect:/";
     }
 
+    @GetMapping(value = "/admin/produt/{productId}")
+    public String productDtl(@PathVariable("productId") Long productId,
+                             Model model) {
+
+        try {
+            ProductDto productDto = productService.getProductDtl(productId);
+            model.addAttribute("productDto", productDto);
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("errorMessage", "존재하지 않는 상품입니다.");
+            model.addAttribute("productDto", new ProductDto());
+            return "admin/product/add";
+        }
+
+        return "admin/product/add";
+    }
+
     /* 상품목록-관리자 */
-    @GetMapping("/admin/product/list.do")
+    @GetMapping(value = "/admin/product/list.do")
     public String list(Model model, ProductParam parameter) {
 
         parameter.init();

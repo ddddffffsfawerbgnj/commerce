@@ -1,31 +1,26 @@
 package com.example.commerce.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Setter
+@Table(name = "product")
+@ToString
 @Entity
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_id")
     private Long productId;
 
     private String productName;
-    private int price;
+    private Integer price;
     private String seller;
     private String origin;
     private String guide;
-    private int stockNumber;
+    private Integer stockNumber;
 
-
-    String filename;
-    String urlFilename;
 
 }

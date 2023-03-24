@@ -2,9 +2,11 @@ package com.example.commerce.dto;
 
 import com.example.commerce.constant.ProductSellStatus;
 import com.example.commerce.entity.Product;
+import com.example.commerce.entity.ProductImg;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,8 +20,8 @@ public class ProductDto {
 
     @NotBlank(message = "상품명은 필수 입력 값입니다.")
     private String productName;
-    @NotBlank(message = "가격은 필수 입력 값입니다.")
-    private int price;
+    @NotNull(message = "가격은 필수 입력 값입니다.")
+    private Integer price;
     @NotBlank(message = "판매자는 필수 입력 값입니다.")
     private String seller;
     @NotBlank(message = "원산지는 필수 입력 값입니다.")
@@ -29,10 +31,6 @@ public class ProductDto {
     @NotNull(message = "재고는 필수 입력 값입니다.")
     private Integer stockNumber;
     private ProductSellStatus productSellStatus;
-
-    String filename;
-    String urlFilename;
-
 
     //추가컬럼
     long totalCount;
