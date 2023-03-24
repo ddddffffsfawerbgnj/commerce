@@ -23,6 +23,8 @@ public class Product {
     private String origin;
     private String guide;
     private Integer stockNumber;
+
+    @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;
 
 

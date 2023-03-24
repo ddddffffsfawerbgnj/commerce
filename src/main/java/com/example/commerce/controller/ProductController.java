@@ -26,7 +26,7 @@ public class ProductController extends BaseController {
     private final ProductService productService;
 
     /**
-     * 상품 등록
+     * 상품 등록 - 관리자화면
      *
      * @param productDto
      * @param model
@@ -63,7 +63,7 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 상품 수정
+     * 상품 수정 - 관리자화면
      * @param productId
      * @param model
      * @return
@@ -107,7 +107,12 @@ public class ProductController extends BaseController {
         return "redirect:/";
     }
 
-    /* 상품목록-관리자 */
+    /**
+     * 상품 목록 - 관리자화면
+     * @param model
+     * @param parameter
+     * @return
+     */
     @GetMapping(value = "/admin/product/list.do")
     public String list(Model model, ProductParam parameter) {
 
@@ -127,8 +132,5 @@ public class ProductController extends BaseController {
 
         return "admin/product/list";
     }
-
-    /*상품상세*/
-
 
 }

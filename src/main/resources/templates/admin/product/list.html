@@ -112,18 +112,26 @@
             <th>NO</th>
             <th>상품명</th>
             <th>가격</th>
+            <th>판매자</th>
+            <th>원산지</th>
+            <th>상품상세</th>
+            <th>재고</th>
+            <th>상태</th>
         </tr>
         </thead>
 
         <tbody>
         <tr th:each="x : ${list}">
-            <td th:text="${x.seq}">1</td>
-            <td>
-            <a th:text="${x.productName}"
-                th:href="${'detail?productName=' + x.productName}">
-                우유</a>
-            </td>
-            <td th:text="${x.price}">2000</td>
+            <td th:text="${x.seq}"></td>
+            <td><a th:href="'/admin/product/' + ${x.productId}"
+                   th:text="${x.productName}"></a></td>
+            <td th:text="${x.price}"></td>
+            <td th:text="${x.seller}"></td>
+            <td th:text="${x.origin}"></td>
+            <td th:text="${x.guide}"></td>
+            <td th:text="${x.stockNumber}"></td>
+            <td
+                    th:text="${x.productSellStatus == T(com.example.commerce.constant.ProductSellStatus).SELL} ? '판매중' : '품절'"></td>
         </tr>
         </tbody>
     </table>
