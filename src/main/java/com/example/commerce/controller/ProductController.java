@@ -62,6 +62,12 @@ public class ProductController extends BaseController {
         return "redirect:/";
     }
 
+    /**
+     * 상품 수정
+     * @param productId
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/admin/produt/{productId}")
     public String productDtl(@PathVariable("productId") Long productId,
                              Model model) {
@@ -76,6 +82,29 @@ public class ProductController extends BaseController {
         }
 
         return "admin/product/add";
+    }
+
+    @PostMapping(value = "/admin/product/{productId}")
+    public String productUpdate(@Valid ProductDto productDto,
+                             BindingResult bindingResult, Model model,
+                             @RequestParam(name = "productImgFile") List<MultipartFile> productImgFileList) {
+        if (bindingResult.hasErrors()) {
+            return "admin/product/add";
+        }
+
+        if (productImgFileList.get(0).isEmpty() && productDto.getProductId() == null) {
+            model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
+            return "admin/product/add";
+        }
+
+        try {
+            productService.updateProduct(productDto, productImgFileList);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "상품 수정 중 에러가 발생했습니다.");
+            return "admin/product/add";
+        }
+
+        return "redirect:/";
     }
 
     /* 상품목록-관리자 */

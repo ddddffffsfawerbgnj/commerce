@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -39,24 +41,26 @@ public class ProductImgService {
         productImgRepository.save(productImg);
     }
 
-//    public void updateProductImg(Long productImgId,
-//                                 MultipartFile productImgFile) throws Exception {
-//
-//        //상품 이미지를 수정했다면
-//        if (!productImgFile.isEmpty()) {
-//            ProductImg saveProductImg = productImgRepository.findById(productImgId)
-//                    .orElseThrow(EntityNotFoundException::new);
-//
-//            //기존 이미지 파일이 존재한다면 삭제
-//            if (!StringUtils.isEmpty(saveProductImg.getImgName())){
-//                fileService.deleteFile(productImgLocation + "/" + saveProductImg.getImgName());
-//            }
-//
-//            String oriImgName = productImgFile.getOriginalFilename();
-//            String imgName = fileService.uploadFile(productImgLocation,
-//                    oriImgName, productImgFile.getBytes());
-//            String imgUrl = "/images/product/" + imgName;
-//            saveProductImg.updateProductImg(oriImgName, imgName, imgUrl);
-//        }
+
+    public void updateProductImg(Long productImgId,
+                                 MultipartFile productImgFile) throws Exception {
+
+        //상품 이미지를 수정했다면
+        if (!productImgFile.isEmpty()) {
+            ProductImg saveProductImg = productImgRepository.findById(productImgId)
+                    .orElseThrow(EntityNotFoundException::new);
+
+            //기존 이미지 파일이 존재한다면 삭제
+            if (!StringUtils.isEmpty(saveProductImg.getImgName())) {
+                fileService.deleteFile(productImgLocation + "/" + saveProductImg.getImgName());
+            }
+
+            String oriImgName = productImgFile.getOriginalFilename();
+            String imgName = fileService.uploadFile(productImgLocation,
+                    oriImgName, productImgFile.getBytes());
+            String imgUrl = "/images/product/" + imgName;
+            saveProductImg.updateProductImg(oriImgName, imgName, imgUrl);
+        }
+    }
 
 }

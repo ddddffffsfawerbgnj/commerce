@@ -1,5 +1,7 @@
 package com.example.commerce.entity;
 
+import com.example.commerce.constant.ProductSellStatus;
+import com.example.commerce.dto.ProductDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +23,17 @@ public class Product {
     private String origin;
     private String guide;
     private Integer stockNumber;
+    private ProductSellStatus productSellStatus;
 
+
+    public void updateProduct(ProductDto productDto) {
+        this.productName = productDto.getProductName();
+        this.price = productDto.getPrice();
+        this.seller = productDto.getSeller();
+        this.origin = productDto.getOrigin();
+        this.guide = productDto.getGuide();
+        this.stockNumber = productDto.getStockNumber();
+        this.productSellStatus = productDto.getProductSellStatus();
+    }
 
 }
