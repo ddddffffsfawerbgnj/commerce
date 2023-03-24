@@ -38,8 +38,83 @@
             color: black;
         }
 
+        .mgb-15 {
+            margin-bottom: 15px;
+        }
+
+        .mgt-30 {
+            margin-top: 30px;
+        }
+
+        .mgt-50 {
+            margin-top: 50px;
+        }
+
+        .wd50 {
+            height: auto;
+            width: 50%;
+        }
+
     </style>
 
+    <script th:inline="javascript">
+        $(document).ready(function () {
+
+            calculateTotalPrice();
+
+            $("#count").change(function () {
+                calculateTotalPrice();
+            });
+        });
+
+        function calculateTotalPrice() {
+            var count = $("#count").val();
+            var price = $("#price").val();
+            var totalPrice = price * count;
+            $("#totalPrice").html(totalPrice + '원');
+        }
+
+        function addCart() {
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/cart";
+            var paramData = {
+                itemId: $("#itemId").val(),
+                count: $("#count").val()
+            };
+
+            var param = JSON.stringify(paramData);
+            s
+            $.ajax({
+                url: url,
+                type: "POST",
+                contentType: "application/json",
+                data: param,
+                beforeSend: function (xhr) {
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType: "json",
+                cache: false,
+                success: function (result, status) {
+                    alert("상품을 장바구니에 담았습니다.");
+                    location.href = '/';
+                },
+                error: function (jqXHR, status, error) {
+
+                    if (jqXHR.status == '401') {
+                        alert('로그인 후 이용해주세요');
+                        location.href = '/member/login';
+                    } else {
+                        alert(jqXHR.responseText);
+                    }
+
+                }
+            });
+        }
+
+    </script>
 
 </head>
 <body>
@@ -55,16 +130,51 @@
 </div>
 
 <div layout:fragment="content" style="margin-left:25%;margin-right:25%">
-    <div>
-        <p>상품명: <span th:text="${detail.productName}"></span></p>
+
+    <input type="hidden" id="productId" th:value="${product.productId}">
+
+    <div class="d-flex">
+        <!--        <div class="repImgDiv">-->
+        <!--            <img th:src="${product.productImgDtoList[0].imgUrl}"-->
+        <!--                 class="rounded repImg" th:alt="${product.productName}">-->
+        <!--        </div>-->
+        <div class="wd50">
+      <span th:if="${product.productSellStatus == T(com.example.commerce.constant.ProductSellStatus).SELL}"
+            class="badge badge-primary mgb-15">판매중</span>
+            <span th:unless="${product.productSellStatus == T(com.example.commerce.constant.ProductSellStatus).SELL}"
+                  class="badge btn-danger mgb-15">품절</span>
+            <div class="h4" th:text="${product.productName}"></div>
+            <hr class="my-4">
+
+            <div class="text-right">
+                <div class="h4 text-danger text-left">
+                    <input type="hidden" th:value="${product.price}" id="price"
+                           name="price">
+                    <span th:text="${product.price}"></span>원
+                </div>
+                <hr class="my-4">
+
+                <div
+                        th:if="${product.productSellStatus == T(com.example.commerce.constant.ProductSellStatus).SELL}"
+                        class="text-right">
+                    <button type="button"
+                            class="btn btn-light border border-primary btn-lg"
+                            onclick="addCart()">장바구니 담기
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid mgt-30">
+            <div class="container">
+                <h4 class="display-5">상품 상세 설명</h4>
+                <hr class="my-4">
+                <p class="lead" th:text="${product.guide}"></p>
+            </div>
+        </div>
+
     </div>
-    <div>
-        <p>가격: <span th:text="${detail.price}"></span></p>
-    </div>
-    <div>
-        <p>상세 설명: <span th:text="${detail.guide}"></span></p>
-    </div>
-</div>
 
 </body>
 </html>

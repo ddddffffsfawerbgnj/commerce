@@ -168,8 +168,8 @@ public class ProductController extends BaseController {
     @GetMapping("/product/{productId}")
     public String productDetail(Model model,
                                 @PathVariable("productId") Long productId) {
-        ProductDto detail = productService.getProductDtl(productId);
-        model.addAttribute("detail", detail);
+        ProductDto product = productService.getProductDtl(productId);
+        model.addAttribute("product", product);
 
         return "product/detail";
     }
