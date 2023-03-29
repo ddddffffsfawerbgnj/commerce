@@ -54,12 +54,13 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
-			<version>5.0.0</version>
+<!--			<version>5.0.0</version>-->
 		</dependency>
+
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
-			<version>5.0.0</version>
+<!--			<version>5.0.0</version>-->
 		</dependency>
 
 		<dependency>
@@ -128,8 +129,7 @@
 							<goal>process</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>target/generated-sources
-								/java</outputDirectory>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
 							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
 						</configuration>
 					</execution>

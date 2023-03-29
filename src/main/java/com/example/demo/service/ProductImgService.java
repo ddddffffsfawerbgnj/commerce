@@ -33,7 +33,7 @@ public class ProductImgService {
         if (!StringUtils.isEmpty(oriImgName)) {
             imgName = fileService.uploadFile(productImgLocation, oriImgName,
                     productImgFile.getBytes());
-            imgUrl = "/images/product" + imgName;
+            imgUrl = "/images/product/" + imgName;
         }
 
         //상품 이미지 정보 저장

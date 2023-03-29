@@ -55,10 +55,10 @@
             </thead>
             <tbody>
             <tr th:each="product, status: ${products.getContent()}">
-                <td th:text="${product.productId}"></td>
+                <td th:text="${product.id}"></td>
                 <td>
-                    <a th:href="'/admin/product/'+${product.productId}"
-                       th:text="${product.productId}"></a>
+                    <a th:href="'/admin/product/'+${product.id}"
+                       th:text="${product.id}"></a>
                 </td>
                 <td
                         th:text="${product.productSellStatus == T(com.example.demo.constant.ProductSellStatus).SELL} ? '판매중' : '품절'"></td>

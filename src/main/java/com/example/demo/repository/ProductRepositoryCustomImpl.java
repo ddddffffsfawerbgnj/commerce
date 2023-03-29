@@ -1,10 +1,14 @@
 package com.example.demo.repository;
 
+import com.example.demo.dto.MainProductDto;
 import com.example.demo.dto.ProductSearchDto;
+import com.example.demo.dto.QMainProductDto;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.QProduct;
+import com.example.demo.entity.QProductImg;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.example.demo.constant.ProductSellStatus;
 
@@ -74,6 +78,47 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
         List<Product> content = results.getResults();
         long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    private BooleanExpression productNmLike(String searchQuery) {
+        return StringUtils.isEmpty(searchQuery) ? null :
+                QProduct.product.productName.like("%" + searchQuery + "%");
+    }
+
+    @Override
+    public Page<MainProductDto> getMainProductPage(ProductSearchDto productSearchDto, Pageable pageable) {
+
+        QProduct product = QProduct.product;
+        QProductImg productImg = QProductImg.productImg;
+
+        List<MainProductDto> content = queryFactory
+                .select(
+                        new QMainProductDto(
+                                product.id,
+                                product.productName,
+                                product.guide,
+                                productImg.imgUrl,
+                                product.price)
+                )
+                .from(productImg)
+                .join(productImg.product, product)
+                .where(productImg.repImgYn.eq("Y"))
+                .where(productNmLike(productSearchDto.getSearchQuery()))
+                .orderBy(product.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        long total = queryFactory
+                .select(Wildcard.count)
+                .from(productImg)
+                .join(productImg.product, product)
+                .where(productImg.repImgYn.eq("Y"))
+                .where(productNmLike(productSearchDto.getSearchQuery()))
+                .fetchOne()
+                ;
+
         return new PageImpl<>(content, pageable, total);
     }
 

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.MainProductDto;
 import com.example.demo.dto.ProductFormDto;
 import com.example.demo.dto.ProductImgDto;
 import com.example.demo.dto.ProductSearchDto;
@@ -88,6 +89,12 @@ public class ProductService {
     public Page<Product> getAdminProductPage(ProductSearchDto productSearchDto,
                                              Pageable pageable){
         return productRepository.getAdminItemPage(productSearchDto, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MainProductDto> getMainProductPage(ProductSearchDto productSearchDto,
+                                                   Pageable pageable) {
+        return productRepository.getMainProductPage(productSearchDto, pageable);
     }
 
 }
