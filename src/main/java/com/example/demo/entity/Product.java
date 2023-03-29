@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import com.example.demo.constant.ProductSellStatus;
+import com.example.demo.dto.ProductFormDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product extends BaseEntity{
 
     @Id
     @Column(name = "product_id")
@@ -42,5 +43,15 @@ public class Product {
     private LocalDateTime regTime;
 
     private LocalDateTime updateTime;
+
+    public void updateProduct(ProductFormDto productFormDto){
+        this.productName = productFormDto.getProductName();
+        this.price = productFormDto.getPrice();
+        this.seller = productFormDto.getSeller();
+        this.origin = productFormDto.getOrigin();
+        this.stockNumber = productFormDto.getStockNumber();
+        this.guide = productFormDto.getGuide();
+        this.productSellStatus = productFormDto.getProductSellStatus();
+    }
 
 }
