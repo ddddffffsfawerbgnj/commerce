@@ -6,13 +6,13 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@Table(name="cart_item")
-public class CartProduct {
+@Table(name="cart_product")
+public class CartProduct extends BaseEntity{
 
 
     @Id
     @GeneratedValue
-    @Column(name = "cart_item_id")
+    @Column(name = "cart_product_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,9 +20,21 @@ public class CartProduct {
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     private int count;
 
+    public static CartProduct createCartProduct(Cart cart, Product product,
+                                                int count) {
+        CartProduct cartProduct = new CartProduct();
+        cartProduct.setCart(cart);
+        cartProduct.setProduct(product);
+        cartProduct.setCount(count);
+        return cartProduct;
+    }
+
+    public void addCount(int count) {
+        this.count += count;
+    }
 }

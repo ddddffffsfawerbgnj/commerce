@@ -1,0 +1,72 @@
+package com.example.demo.service;
+
+import com.example.demo.dto.CartDetailDto;
+import com.example.demo.dto.CartProductDto;
+import com.example.demo.entity.Cart;
+import com.example.demo.entity.CartProduct;
+import com.example.demo.entity.Member;
+import com.example.demo.entity.Product;
+import com.example.demo.repository.CartProductRepository;
+import com.example.demo.repository.CartRepository;
+import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class CartService {
+
+    private final ProductRepository productRepository;
+    private MemberRepository memberRepository;
+    private final CartRepository cartRepository;
+    private final CartProductRepository cartProductRepository;
+
+    public Long addCart(CartProductDto cartProductDto, String email) {
+        Product product = productRepository.findById(cartProductDto.getProductId())
+                .orElseThrow(EntityNotFoundException::new);
+        Member member = memberRepository.findByEmail(email);
+
+        Cart cart = cartRepository.findByMemberId(member.getId());
+        if (cart == null) {
+            cart = Cart.createCart(member);
+            cartRepository.save(cart);
+        }
+
+        CartProduct savedCartProduct =
+                cartProductRepository.findByCartIdAndProductId(cart.getId(),
+                        product.getId());
+
+        if (savedCartProduct != null) {
+            savedCartProduct.addCount(cartProductDto.getCount());
+            return savedCartProduct.getId();
+        } else {
+            CartProduct cartProduct = CartProduct.createCartProduct(cart,
+                    product, cartProductDto.getCount());
+            cartProductRepository.save(cartProduct);
+            return cartProduct.getId();
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<CartDetailDto> getCartList(String email){
+
+        List<CartDetailDto> cartDetailDtoList = new ArrayList<>();
+
+        Member member = memberRepository.findByEmail(email);
+        Cart cart = cartRepository.findByMemberId(member.getId());
+        if(cart == null){
+            return cartDetailDtoList;
+        }
+
+        cartDetailDtoList = cartProductRepository.findCartDetailDtoList(cart.getId());
+        return cartDetailDtoList;
+    }
+
+}
