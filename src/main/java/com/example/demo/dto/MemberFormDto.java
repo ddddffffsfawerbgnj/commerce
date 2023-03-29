@@ -2,12 +2,10 @@ package com.example.demo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -23,14 +21,12 @@ public class MemberFormDto {
     @NotEmpty(message = "생년월일은 필수 입력 값입니다.")
     private String birth;
 
-    @NotEmpty(message = "핸드폰은 필수 입력 값입니다.")
+    @NotEmpty(message = "연락처는 필수 입력 값입니다.")
     private String phone;
 
     @NotEmpty(message = "비밀번호는 필수 입력 값입니다.")
-    @Length(min = 4, max = 16, message = "비밀번호는 4자 이상, 16자 이하로 입력해주세요")
     private String password;
 
     @NotEmpty(message = "주소는 필수 입력 값입니다.")
     private String address;
-
 }
