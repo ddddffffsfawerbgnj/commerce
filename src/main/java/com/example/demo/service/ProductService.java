@@ -2,16 +2,19 @@ package com.example.demo.service;
 
 import com.example.demo.dto.ProductFormDto;
 import com.example.demo.dto.ProductImgDto;
+import com.example.demo.dto.ProductSearchDto;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.ProductImg;
 import com.example.demo.repository.ProductImgRepository;
 import com.example.demo.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,4 +83,11 @@ public class ProductService {
 
         return product.getId();
     }
+
+    @Transactional(readOnly = true)
+    public Page<Product> getAdminProductPage(ProductSearchDto productSearchDto,
+                                             Pageable pageable){
+        return productRepository.getAdminItemPage(productSearchDto, pageable);
+    }
+
 }
