@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CartProductRepository extends JpaRepository<CartProduct, Long> {
 
-    CartProduct findByCartIdAndProductId(Long cartId, Long productId);
+    CartProduct findByCart_IdAndProductId(Long cartId, Long productId);
 
     @Query("select new com.example.demo.dto.CartDetailDto(ci.id, i " +
             ".productName, i " +

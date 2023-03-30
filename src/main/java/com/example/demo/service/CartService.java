@@ -24,7 +24,7 @@ import java.util.List;
 public class CartService {
 
     private final ProductRepository productRepository;
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
     private final CartRepository cartRepository;
     private final CartProductRepository cartProductRepository;
 
@@ -40,7 +40,7 @@ public class CartService {
         }
 
         CartProduct savedCartProduct =
-                cartProductRepository.findByCartIdAndProductId(cart.getId(),
+                cartProductRepository.findByCart_IdAndProductId(cart.getId(),
                         product.getId());
 
         if (savedCartProduct != null) {
