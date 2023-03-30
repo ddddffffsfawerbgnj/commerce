@@ -51,6 +51,7 @@ public class CartController {
         return new ResponseEntity<Long>(cartProductId, HttpStatus.OK);
     }
 
+    // 목록 조회
     @GetMapping(value = "/cart")
     public String orderHist(Principal principal, Model model){
         List<CartDetailDto> cartDetailList =
@@ -59,6 +60,7 @@ public class CartController {
         return "cart/cartList";
     }
 
+    // 수량 변경
     @PostMapping(value = "/cartProduct/{cartProductId}")
     public @ResponseBody ResponseEntity updateCartProduct(
             @PathVariable("cartProducrId") Long cartProductId, int count,
@@ -76,4 +78,17 @@ public class CartController {
         return new ResponseEntity<Long>(cartProductId, HttpStatus.OK);
     }
 
+    // 상품 삭제
+    @DeleteMapping(value = "/cartProduct/{cartProductId}")
+    public @ResponseBody ResponseEntity deleteCartProduct(
+            @PathVariable("cartProductId") Long cartProductId,
+            Principal principal) {
+        if (!cartService.validateCartProduct(cartProductId, principal.getName())){
+            return new ResponseEntity<String>("수정 권한이 없습니다.",
+                    HttpStatus.FORBIDDEN);
+        }
+
+        cartService.deleteCartProduct(cartProductId);
+        return new ResponseEntity<Long>(cartProductId, HttpStatus.OK);
+    }
 }

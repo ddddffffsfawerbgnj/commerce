@@ -83,6 +83,7 @@ public class CartService {
         return true;
     }
 
+    // 장바구니 수량 수정
     public void updateCartProductCount(Long cartProductId, int count) {
         CartProduct cartProduct = cartProductRepository.findById(cartProductId)
                 .orElseThrow(EntityNotFoundException::new);
@@ -90,4 +91,10 @@ public class CartService {
         cartProduct.updateCount(count);
     }
 
+    // 장바구니 상품 삭제
+    public void deleteCartProduct(Long cartProductId) {
+        CartProduct cartProduct = cartProductRepository.findById(cartProductId)
+                .orElseThrow(EntityNotFoundException::new);
+        cartProductRepository.delete(cartProduct);
+    }
 }
