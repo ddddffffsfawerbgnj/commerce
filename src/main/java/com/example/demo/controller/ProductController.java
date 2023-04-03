@@ -98,7 +98,7 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @GetMapping(value = {"/admin/product", "/admin/product/{page}"})
+    @GetMapping(value = {"/admin/products", "/admin/products/{page}"})
     public String productManage(ProductSearchDto productSearchDto, @PathVariable(
             "page") Optional<Integer> page, Model model){
 

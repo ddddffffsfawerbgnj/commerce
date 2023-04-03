@@ -72,25 +72,20 @@
                 th:with="start=${(products.number/maxPage)*maxPage + 1}, end=(${(products.totalPages == 0) ? 1 : (start + (maxPage - 1) < products.totalPages ? start + (maxPage - 1) : products.totalPages)})" >
             <ul class="pagination justify-content-center">
 
-                <li class="page-item"
-                    th:classappend="${products.first}?'disabled'">
-                    <a
-                            th:onclick="'javascript:page(' + ${products.number - 1} + ')'" aria-label='Previous' class="page-link">
-                        <span aria-hidden='true'>Previous</span>
+                <li class="page-item" th:classappend="${products.first}?'disabled'">
+                    <a th:onclick="'javascript:page(' + ${products.number - 1} + ')'" aria-label='Previous' class="page-link">
+                        <span aria-hidden='true'> < </span>
                     </a>
                 </li>
 
                 <li class="page-item"
-                    th:each="page: ${#numbers.sequence(start, end)}"
-                    th:classappend="${products.number eq page - 1}?'active':''">
+                    th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${products.number eq page - 1}?'active':''">
                     <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
                 </li>
 
-                <li class="page-item"
-                    th:classappend="${products.last}?'disabled'">
-                    <a
-                            th:onclick="'javascript:page(' + ${products.number + 1} + ')'" aria-label='Next' class="page-link">
-                        <span aria-hidden='true'>Next</span>
+                <li class="page-item" th:classappend="${products.last}?'disabled'">
+                    <a th:onclick="'javascript:page(' + ${products.number + 1} + ')'" aria-label='Next' class="page-link">
+                        <span aria-hidden='true'> > </span>
                     </a>
                 </li>
 

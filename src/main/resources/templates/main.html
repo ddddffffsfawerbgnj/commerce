@@ -37,7 +37,7 @@
   <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active item">
-        <img class="d-block w-100 banner" src="/aa.jpeg" alt="First slide">
+        <img class="d-block w-100 banner" src="https://i.esdrop.com/d/f/wfn09eXUoa/nhOB4fgvGg.jpg" alt="First slide">
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@
       <li class="page-item" th:classappend="${products.number eq 0}?'disabled':''">
         <a
                 th:href="@{'/' + '?searchQuery=' + ${productSearchDto.searchQuery} + '&page=' + ${products.number - 1}}" aria-label='Previous' class="page-link">
-          <span aria-hidden='true'>Previous</span>
+          <span aria-hidden='true'> < </span>
         </a>
       </li>
 
@@ -86,7 +86,7 @@
       <li class="page-item" th:classappend="${products.number+1 ge products.totalPages}?'disabled':''">
         <a
                 th:href="@{'/' +'?searchQuery=' + ${productSearchDto.searchQuery} + '&page=' + ${products.number + 1}}" aria-label='Next' class="page-link">
-          <span aria-hidden='true'>Next</span>
+          <span aria-hidden='true'> > </span>
         </a>
       </li>
 
