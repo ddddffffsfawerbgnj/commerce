@@ -88,7 +88,7 @@ class ProductRepositoryTest {
     }
 
     @Test
-    @DisplayName("상품 Queryds1 조회 테스트 2")
+    @DisplayName("상품 Querydsl1 조회 테스트 2")
     public void queryDslTest2() {
 
         this.createProductList2();

@@ -2,10 +2,11 @@ package com.example.demo.entity;
 
 import com.example.demo.constant.ProductSellStatus;
 import com.example.demo.dto.ProductFormDto;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
